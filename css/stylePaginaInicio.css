@@ -235,8 +235,11 @@ header {
 
 /* Footer */
 footer {
+    position: fixed;
+    bottom: 0;
     margin-top: auto;
     background-color: #222;
+    width: 100%;
     color: #ccc;
     padding: 30px 20px 15px;
 }
