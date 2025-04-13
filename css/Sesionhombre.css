@@ -167,7 +167,12 @@ header {
 
 /* Banner Styles */
 .banner {
+<<<<<<< HEAD
   background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20pantalla%202025-04-13%20130949-jP1cC7LWnv7eOu0NDauSuwlO79gY6F.png');
+=======
+  background-image: url('../img/header.jpg');
+  height: 200px;
+>>>>>>> 0da1febd8068f8078a11c3218845e7bf076f9799
   background-size: cover;
   background-position: center;
   position: relative;
