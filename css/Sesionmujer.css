@@ -8,7 +8,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #d9d9d9;
+  background-color: #e9e9e9;
   color: #333;
 }
 
@@ -62,13 +62,11 @@ header {
   transition: all 0.3s ease;
   font-weight: bold;
   display: block;
-
 }
 
 .main-menu a:hover, .main-menu a.active {
   color: #b08d57;
 }
-
 
 /* Menú desplegable */
 .dropdown {
@@ -167,21 +165,36 @@ header {
   object-fit: cover;
 }
 
-
 /* Banner Styles */
 .banner {
-  background-image: url('/Tienda-Perfumes/img/header.jpg');
-  height: 200px;
+  background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20pantalla%202025-04-13%20130402-SPptdDKPvaNzE1U1xLUzF0K3hSRr6F.png');
   background-size: cover;
   background-position: center;
+  position: relative;
+  height: 200px;
   display: flex;
   align-items: center;
   padding: 0 40px;
 }
 
+.banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad aquí */
+}
+
+.banner-content {
+  position: relative;
+  z-index: 1;
+}
+
 .banner-content h2 {
-  font-family: "roboto" ;
-  color: white;
+  font-family: "roboto";
+  color: #fdfdfd;
   font-size: 36px;
   font-weight: 700;
   line-height: 1.2;
@@ -193,7 +206,7 @@ header {
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   padding: 30px;
-  background-color: #d9d9d9;
+  background-color: #e9e9e9;
 }
 
 .product-card {
@@ -291,7 +304,6 @@ header {
 .carrito {
   color: black;
 }
-
 
 /* Responsive Styles */
 @media (max-width: 1024px) {

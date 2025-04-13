@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestionar Productos - Nuit de Parfum</title>
+  <link rel="stylesheet" href="/Front/css/gestionarProducto.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo-section">
+            <div class="logo">
+                <img src="img/LogoPerfumeria.jpg" alt="Nuit de Parfum Logo">
+            </div>
+            <div class="brand">
+                <h1>Nuit de Parfum</h1>
+                <p>Perfumería</p>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="main-menu">
+                <li><a href="/Front/inicio.html" class="active">Inicio</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Perfumes <span class="arrow-down">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="sesionperfumeunisex.html">Perfumes Unisex</a></li>
+                        <li><a href="sesionperfumehombre.html">Perfumes Hombre</a></li>
+                        <li><a href="sesionperfumemujer.html">Perfumes Mujer</a></li>
+                    </ul>
+                </li>
+                <li><a href="sesionsobrenosotros.html">Sobre Nosotros</a></li>
+                <li><a href="sesioncontacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        
+        <div class="search-profile">
+            <a href="#" class="cart-button" style="margin-left: 10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+            </a>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar perfume">
+                <button type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="profile">
+                <img src="img/imagenperfil.jpg" alt="Perfil de usuario">
+            </div>
+        </div>
+    </header>
+
+  <table>
+    <thead>
+      <tr>
+        <th>N°</th>
+        <th>id</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2</td>
+        <td>2</td>
+        <td>Dolce & Gabbana<br>The One</td>
+        <td>344,000 COP</td>
+        <td>2</td>
+        <td>
+            <a href="/Front/editarProducto.html" class="btn editar">EDITAR</a>
+
+          <button class="btn eliminar" onclick="abrirEliminar()">ELIMINAR</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Popup Editar -->
+  <div class="popup-overlay" id="popupEditar">
+    <div class="popup">
+      <h3>Editar Producto</h3>
+      <input type="text" placeholder="Nombre del producto" />
+      <input type="text" placeholder="Precio" />
+      <input type="number" placeholder="Stock" />
+      <br />
+      <button class="btn editar" onclick="cerrarEditar()">Guardar</button>
+      <button class="btn eliminar" onclick="cerrarEditar()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Popup Eliminar -->
+  <div class="popup-overlay" id="popupEliminar">
+    <div class="popup">
+      <h3>¿Eliminar producto?</h3>
+      <p>Esta acción no se puede deshacer.</p>
+      <button class="btn eliminar" onclick="cerrarEliminar()">Eliminar</button>
+      <button class="btn editar" onclick="cerrarEliminar()">Cancelar</button>
+    </div>
+  </div>
+
+  <script src="/Front/js/gestionarProducto.js"></script>
+</body>
+</html>
