@@ -169,7 +169,7 @@ object-fit: cover;
 
 /* Banner Styles */
 .banner {
-background-image: url(img/header.jpg);
+background-image: url(../img/header.jpg);
 height: 200px;
 background-size: cover;
 background-position: center;
