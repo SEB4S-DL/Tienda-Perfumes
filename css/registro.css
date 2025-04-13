@@ -1,204 +1,196 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Arial", sans-serif;
-  }
-  
-  body {
-    background-color: #f5f5f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-  }
-  
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-  }
-  
-  .device-frame {
-    background-color: white;
-    border-radius: 30px;
-    overflow: hidden;
-    width: 85%;
-    height: 85%;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    border: 15px solid #000;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.form-image {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background-color: #000;
+}
+
+.form-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.form-content {
+  flex: 1.2;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #d7d4d0;
+  position: relative;
+  overflow-y: auto;
+}
+
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23d9d0c3" d="M50,20 C60,20 70,30 70,50 C70,70 60,80 50,80 C40,80 30,70 30,50 C30,30 40,20 50,20 Z M50,35 C45,35 40,40 40,50 C40,60 45,65 50,65 C55,65 60,60 60,50 C60,40 55,35 50,35 Z"/><text x="35" y="100" font-family="Arial" font-size="10" fill="%23d9d0c3">DE PARFUM</text></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #816e59;
+  font-weight: bold;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+  font-size: 28px;
+}
+
+.input-group {
+  background-color: #bcb6ae;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  position: relative;
+  z-index: 1;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-group span {
+  color: #faf9f8;
+  margin-right: 10px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+}
+
+.input-group input::placeholder {
+  color: #ffffff;
+  opacity: 1;
+  font-size: 14px;
+}
+
+.submit-btn {
+  background-color: #816e59;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: background-color 0.3s;
+  margin-top: 15px;
+  position: relative;
+  z-index: 1;
+  width: 180px;
+  max-width: 180px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  font-size: 16px;
+  text-shadow: 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.submit-btn:hover {
+  background-color: #8a7a67;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .form-container {
-    display: flex;
-    min-height: 500px;
-    max-height: 80vh;
-  }
-  
-  .form-image {
-    flex: 1;
-    overflow: hidden;
-    position: relative;
-    background-color: #000;
-  }
-  
-  .form-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-  
-  .form-content {
-    flex: 1.2;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: #d7d4d0;
-    position: relative;
-    overflow-y: auto;
-  }
-  
-  .watermark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    height: 300px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23d9d0c3" d="M50,20 C60,20 70,30 70,50 C70,70 60,80 50,80 C40,80 30,70 30,50 C30,30 40,20 50,20 Z M50,35 C45,35 40,40 40,50 C40,60 45,65 50,65 C55,65 60,60 60,50 C60,40 55,35 50,35 Z"/><text x="35" y="100" font-family="Arial" font-size="10" fill="%23d9d0c3">DE PARFUM</text></svg>');
-    background-repeat: no-repeat;
-    background-position: center;
-    opacity: 0.1;
-    z-index: 0;
-  }
-  
-  .form-title {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #816e59;
-    font-weight: bold;
-    letter-spacing: 1px;
-    position: relative;
-    z-index: 1;
-  }
-  
-  .input-group {
-    background-color: #bcb6ae;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-    position: relative;
-    z-index: 1;
-  }
-  
-  .input-group span {
-    color: #faf9f8;
-    margin-right: 10px;
-  }
-  
-  .input-group input {
-    width: 100%;
-    padding: 12px 0;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #333;
-  }
-  
-  .input-group input::placeholder {
-    color: #ffffff;
-    opacity: 1;
-    font-size: 14px;
-  }
-  
-  .submit-btn {
-    background-color: #816e59;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-weight: bold;
-    letter-spacing: 1px;
-    transition: background-color 0.3s;
-    margin-top: 15px;
-    position: relative;
-    z-index: 1;
-    width: 180px; /* Ancho fijo en píxeles */
-    max-width: 180px; /* Asegura que no crezca más allá de este ancho */
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    font-size: 16px;
-    text-shadow: 1px 2px rgba(0, 0, 0, 0.4);
-  }
-  
-  .submit-btn:hover {
-    background-color: #8a7a67;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .device-frame {
-      border-width: 10px;
-      max-width: 100%;
-    }
-  
-    .form-container {
       flex-direction: column;
-      min-height: auto;
-    }
-  
-    .form-image {
-      height: 200px;
-    }
-  
-    .form-content {
+  }
+
+  .form-image {
+      height: 30vh;
+  }
+
+  .form-content {
+      height: 70vh;
       padding: 20px;
-    }
-  
-    .form-title {
+  }
+
+  .form-title {
       margin-top: 0;
-    }
-  
-    .input-group input::placeholder {
+      margin-bottom: 15px;
+      font-size: 24px;
+  }
+
+  .input-group {
+      margin-bottom: 10px;
+  }
+
+  .input-group input::placeholder {
       font-size: 13px;
-    }
-  
-    .submit-btn {
+  }
+
+  .submit-btn {
       width: 150px;
       max-width: 150px;
       font-size: 14px;
-    }
+      margin-top: 10px;
   }
-  
-  @media (max-width: 480px) {
-    .device-frame {
-      border-width: 8px;
-    }
-  
-    .form-image {
-      height: 150px;
-    }
-  
-    .form-content {
+}
+
+@media (max-width: 480px) {
+  .form-image {
+      height: 25vh;
+  }
+
+  .form-content {
+      height: 75vh;
       padding: 15px;
-    }
-  
-    .input-group {
+  }
+
+  .input-group {
       padding: 0 10px;
-    }
-  
-    .submit-btn {
+      margin-bottom: 8px;
+  }
+
+  .submit-btn {
       width: 130px;
       max-width: 130px;
-    }
+      margin-top: 8px;
   }
-  
+}

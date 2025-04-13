@@ -7,36 +7,23 @@
 
 body {
     background-color: #f5f5f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    overflow: hidden;
 }
 
 .container {
+    width: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 200%;
-    
-}
-
-.device-frame {
-    background-color: white;
-    border-radius: 30px;
-    overflow: hidden;
-    width: 70%;
-    height: 75%;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    border: 12px solid #000;
 }
 
 .form-container {
     display: flex;
+    width: 100%;
     height: 100%;
-    
-    
+    overflow: hidden;
 }
 
 .form-image {
@@ -66,10 +53,9 @@ body {
     text-align: center;
     margin-bottom: 100px;
     color: #816E59;
-    font-weight: 500;
-    letter-spacing: 1px;
     font-weight: bold;
-    
+    letter-spacing: 1px;
+    font-size: 28px;
 }
 
 .input-group {
@@ -83,19 +69,17 @@ body {
     margin-left: 8%;
     color: #fff;
 }
+
 .input-group input::placeholder {
     color: #ffffff;
-    opacity: 1; /* Asegura que el color no sea translúcido */
+    opacity: 1;
     font-size: 17px;
 }
-
 
 .input-group span {
     color: #fff;
     margin-right: 10px;
-    gap: 10%;
 }
-
 
 .input-group input {
     width: 100%;
@@ -105,7 +89,6 @@ body {
     outline: none;
     color: #faf6f6;
 }
-
 
 .submit-btn {
     background-color: #816e5999;
@@ -124,7 +107,7 @@ body {
     margin-left: 25%;
     height: 25%;
     font-size: 20px;
-    text-shadow:  2px 4px rgba(0, 0, 0, 0.4);
+    text-shadow: 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .submit-btn:hover {
@@ -132,18 +115,24 @@ body {
 }
 
 /* Responsive adjustments */
-@media (max-width: 650px) {
-    .device-frame {
-        width: 100%;
-        height: auto;
-        min-height: 400px;
-    }
-    
+@media (max-width: 768px) {
     .form-container {
         flex-direction: column;
     }
     
     .form-image {
-        height: 200px;
+        height: 40vh;
+    }
+    
+    .form-content {
+        height: 60vh;
+    }
+    
+    .form-title {
+        margin-bottom: 40px;
+    }
+    
+    .input-group {
+        margin-bottom: 20px;
     }
 }
