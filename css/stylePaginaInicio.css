@@ -232,7 +232,10 @@ header {
 /* Footer */
 footer {
   background-color: #3d3737;
+  width: 100%;
   padding: 40px 20px 20px;
+  position: fixed;
+  bottom: 0;
 }
 
 .footer-content {
