@@ -1,0 +1,323 @@
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "roboto";
+  color: #333;
+  background-color: #d9d9d9;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 15px 20px;
+background-color: #f0f0f0;
+}
+
+.logo-section {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+.logo img {
+width: 70px;
+height: 60px;
+object-fit: contain;
+}
+
+.brand h1 {
+font-family: 'Playfair Display', serif;
+color: #b08d57;
+font-size: 24px;
+font-weight: 500;
+margin-bottom: 2px;
+}
+
+.brand p {
+color: #b08d57;
+font-size: 14px;
+}
+
+/* Menú principal */
+.main-menu {
+display: flex;
+list-style: none;
+gap: 20px;
+}
+
+.main-menu a {
+text-decoration: none;
+color: #b08d57;
+font-size: 15px;
+padding: 5px 10px;
+border-radius: 4px;
+transition: all 0.3s ease;
+font-weight: bold;
+display: block;
+}
+
+.main-menu a:hover, .main-menu a.active {
+color: #b08d57;
+
+}
+
+
+/* Menú desplegable */
+.dropdown {
+position: relative;
+}
+
+.arrow-down {
+font-size: 10px;
+margin-left: 3px;
+transition: transform 0.3s ease;
+}
+
+.dropdown-toggle {
+cursor: pointer;
+display: flex;
+align-items: center; 
+
+
+}
+
+
+.dropdown-menu {
+position: absolute;
+top: 100%;
+left: 0;
+background-color: white;
+min-width: 180px;
+box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+border-radius: 4px;
+padding: 8px 0;
+opacity: 0;
+visibility: hidden;
+transform: translateY(10px);
+transition: all 0.3s ease;
+z-index: 100;
+}
+
+.dropdown-menu li {
+list-style: none;
+}
+
+.dropdown-menu a {
+padding: 8px 16px;
+display: block;
+color: #666;
+
+}
+
+.dropdown:hover .dropdown-menu {
+opacity: 1;
+visibility: visible;
+transform: translateY(0);
+
+}
+
+.dropdown:hover .arrow-down {
+transform: rotate(180deg);
+}
+
+.search-profile {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+.search-bar {
+position: relative;
+}
+
+.search-bar input {
+padding: 8px 15px;
+padding-right: 40px;
+border-radius: 20px;
+border: none;
+font-size: 14px;
+width: 200px;
+background-color: #fff;
+}
+
+.search-bar button {
+position: absolute;
+right: 10px;
+top: 50%;
+transform: translateY(-50%);
+background: none;
+border: none;
+cursor: pointer;
+color: #555;
+}
+
+.profile img {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+object-fit: cover;
+}
+
+
+/* Banner Styles */
+.banner {
+background-image: url(img/header.jpg);
+height: 200px;
+background-size: cover;
+background-position: center;
+display: flex;
+align-items: center;
+padding: 0 40px;
+}
+
+.banner-content h2 {
+font-family: "roboto";
+color: #f7f6f4;
+font-size: 36px;
+font-weight: 700;
+line-height: 1.2;
+}
+
+  
+  /* Main Content */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  
+  .contact-section {
+    text-align: center;
+  }
+  
+  .contact-section h3 {
+    font-family: "roboto";
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  
+  .contact-info {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.8;
+  }
+  
+  .contact-info p {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .contact-info a {
+    color: #9c8249;
+    font-weight: bold;
+  }
+  
+ /* Footer styles */
+ footer {
+  background-color: #170D0D;
+  color: #ccc;
+  padding: 30px 50px;
+  opacity: 0.9;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+}
+
+.logo-small {
+  width: 45px;
+  height: 45px;
+  margin-bottom: 15px;
+}
+
+.tagline {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-links ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links ul li a {
+  font-size: 14px;
+  transition: color 0.3s;
+  color: white;
+}
+
+.footer-links ul li a:hover {
+  color: #8a7047;
+}
+
+.copyright {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+  font-size: 12px;
+  color: #777;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .about-content {
+    flex-direction: column;
+  }
+
+  .image-content {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap;
+    padding: 15px 20px;
+  }
+
+  nav {
+    order: 3;
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  nav ul {
+    justify-content: space-between;
+  }
+
+  .hero {
+    padding: 0 20px;
+  }
+
+  .about-content {
+    padding: 30px 20px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .footer-logo {
+    max-width: 100%;
+  }
+}
