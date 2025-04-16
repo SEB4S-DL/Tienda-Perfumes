@@ -1,6 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['usuario'])) {
+    header('Location: login.php');
+    exit;
+}
 require '../db/db.php';
+
 
 // Crear producto
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['crear'])) {
