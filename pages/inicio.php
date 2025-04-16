@@ -16,13 +16,15 @@
         <div class="slider-container">
             <div class="slider">
                 <div class="slide current">
+                    <img src="../assets/img/header.jpg" alt="" srcset="">
                 </div>
                 <!-- Puedes agregar más slides aquí -->
             </div>
             <button class="arrow prev">&lt;</button>
             <button class="arrow next">&gt;</button>
         </div>
-
+    <br>
+    <br>
     <?php include '../includes/footer.php'; ?>
 
     </div>

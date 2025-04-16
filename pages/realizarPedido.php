@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Realizar Pedido - Nuit de Parfum</title>
-  <link rel="stylesheet" href="css/realizarPedido.css" />
+  <link rel="stylesheet" href="../assets/css/realizarPedido.css" />
 </head>
 <body>
 <?php include '../includes/header.php'; ?>

@@ -52,6 +52,7 @@
                 </div>
                 <div class="profile">
                     <img src="../assets/img/imagenperfil.jpg" alt="Perfil de usuario">
+                    <a href="../pages/sesionperfil.php">.</a>
                 </div>
             </div>
         </header>

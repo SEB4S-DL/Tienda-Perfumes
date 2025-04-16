@@ -16,7 +16,7 @@
             <button class="btn clear" onclick="vaciarCarrito()">Vaciar Carrito</button>
             <div class="total">
                 <span id="total">Precio Total: $0 COP</span>
-                <a href="../pages/gestionaarPedido.php" class="btn order">Hacer Pedido</a>
+                <a href="../pages/realizarPedido.php" class="btn order">Hacer Pedido</a>
             </div>
         </div>
     </main>

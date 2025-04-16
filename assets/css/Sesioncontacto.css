@@ -5,17 +5,22 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
-  font-family: "roboto";
+  font-family: "Roboto", sans-serif;
   color: #333;
   background-color: #d9d9d9;
   line-height: 1.6;
 }
 
-
-
-
-
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
 
 /* Banner Styles */
 .banner {
@@ -36,7 +41,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad aquí */
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .banner-content {
@@ -45,64 +50,45 @@ body {
 }
 
 .banner-content h2 {
-  font-family: "roboto";
-  color: #fdfdfd;
   font-size: 36px;
   font-weight: 700;
+  color: #fff;
   line-height: 1.2;
 }
 
-  
-  /* Main Content */
-  main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-  }
-  
-  .contact-section {
-    text-align: center;
-  }
-  
-  .contact-section h3 {
-    font-family: "roboto";
-    font-size: 32px;
-    color: #333;
-    margin-bottom: 30px;
-  }
-  
-  
-  .contact-info {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-    line-height: 1.8;
-  }
-  
-  .contact-info p {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .contact-info a {
-    color: #9c8249;
-    font-weight: bold;
-  }
-  
-
-
-
-.logo-small {
-  width: 45px;
-  height: 45px;
-  margin-bottom: 15px;
+/* Main Content */
+main {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-.tagline {
-  font-size: 14px;
-  line-height: 1.6;
+.contact-section {
+  text-align: center;
 }
 
+.contact-section h3 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.contact-info {
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.contact-info p {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.contact-info a {
+  color: #9c8249;
+  font-weight: bold;
+}
 
 /* Responsive adjustments */
 @media (max-width: 992px) {
