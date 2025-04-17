@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/editarProducto.css" />
 </head>
 <body>
+<?php session_start()?>
 <?php include '../includes/header.php'; ?>
 
 

@@ -9,7 +9,6 @@
 </head>
 <body>
     <div class="container">
-        
     <?php include '../includes/header.php'; ?>
 
         <!-- Main Slider -->

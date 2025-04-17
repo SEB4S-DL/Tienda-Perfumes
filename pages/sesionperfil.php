@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Raleway:wght@300;400;500&display=swap">
 </head>
 <body>
+<?php session_start()?>
+
     <div class="container">
       
     <?php include '../includes/header.php'; ?>

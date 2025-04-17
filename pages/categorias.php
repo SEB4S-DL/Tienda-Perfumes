@@ -12,6 +12,8 @@
     <style>
     li {list-style-type: none;}
     </style>
+    <?php session_start()?>
+
     
     <?php include '../includes/header.php'; ?>
     <div class="categories-header">

@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="../assets/css/realizarPedido.css" />
 </head>
 <body>
+<?php session_start()?>
+
 <?php include '../includes/header.php'; ?>
 
 
