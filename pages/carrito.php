@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carrito de Compras</title>
   <link rel="stylesheet" href="../assets/css/carrito.css">
+  <link rel="stylesheet" href="../assets/css/styleheader.css">
+    <link rel="stylesheet" href="../assets/css/stylefooter.css">
 </head>
 <body>
   <?php include '../includes/header.php'; ?>

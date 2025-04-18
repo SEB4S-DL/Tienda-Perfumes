@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle del pedido</title>
-    <link rel="stylesheet" href="css/detallePedido.css">
+    <link rel="stylesheet" href="../assets/css/detallePedido.css">
+    <link rel="stylesheet" href="../assets/css/stylePaginaInicio.css">
+    <link rel="stylesheet" href="../assets/css/styleheader.css">
+    <link rel="stylesheet" href="../assets/css/stylefooter.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -61,13 +64,13 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td><img src="img/pexels-valeriya-1961795.jpg" alt="Producto 1" width="60" /></td>
+                        <td><img src="../assets/img/pexels-valeriya-1961795.jpg" alt="Producto 1" width="60" /></td>
                         <td>Luis XV 1722</td>
                         <td>$545.300</td>
                         <td>Stock: 2</td>
                       </tr>
                       <tr>
-                        <td><img src="img/pexels-valeriya-1961789.jpg" alt="Producto 2" width="60" /></td>
+                        <td><img src="../assets/img/pexels-valeriya-1961789.jpg" alt="Producto 2" width="60" /></td>
                         <td>Hierba pura</td>
                         <td>$706.700</td>
                         <td>Stock: 2</td>

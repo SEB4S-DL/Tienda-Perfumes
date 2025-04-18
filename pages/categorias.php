@@ -6,13 +6,14 @@
     <title>Categorías</title>
     <link rel="stylesheet" href="../assets/css/categorias.css">
     <link rel="stylesheet" href="../assets/css/stylePaginaInicio.css">
+    <link rel="stylesheet" href="../assets/css/styleheader.css">
+    <link rel="stylesheet" href="../assets/css/stylefooter.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <style>
     li {list-style-type: none;}
     </style>
-    <?php session_start()?>
 
     
     <?php include '../includes/header.php'; ?>

@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Editar Producto</title>
-  <link rel="stylesheet" href="css/editarProducto.css" />
+  <title>Crear Producto</title>
+  <link rel="stylesheet" href="../assets/css/editarProducto.css" />
+  <link rel="stylesheet" href="../assets/css/stylePaginaInicio.css" />
+  <link rel="stylesheet" href="../assets/css/styleheader.css">
+    <link rel="stylesheet" href="../assets/css/stylefooter.css">
 </head>
 <body>
 <?php session_start()?>
 <?php include '../includes/header.php'; ?>
-
+<?php require '../backend/podructo.php'?>
 
   <main>
-    <h2>Editar Producto</h2>
+    <h2>Crear Producto</h2>
     <form id="form-editar-producto">
       <div class="fila">
         <div>
@@ -51,7 +54,5 @@
     </form>
   </main>
 
-
-  <script src="js/editarProducto.js"></script>
 </body>
 </html>

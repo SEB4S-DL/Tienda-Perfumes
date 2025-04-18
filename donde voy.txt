@@ -1,1 +1,0 @@
-voy en el crud de los productos, en la carpeta back-end estan los archivos jsjs

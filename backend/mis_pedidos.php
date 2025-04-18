@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['usuario'])) {
-    header('Location: login.php');
+    header('Location: /TIENDA-PERFUMES/index.php');
     exit;
 }
 require '../includes/conexion.php'; // ajusta según cómo te conectás a la BD

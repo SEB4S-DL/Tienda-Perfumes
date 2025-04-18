@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestionar Pedido</title>
   <link rel="stylesheet" href="../assets/css/gestionarPedido.css">
+  <link rel="stylesheet" href="../assets/css/styleheader.css">
+  <link rel="stylesheet" href="../assets/css/stylePaginaInicio.css">
 </head>
 <body>
   <?php include '../includes/header.php'; ?>
-
+  <?php require '../backend/mis_pedidos.php'?>
   <main>
     <h2>GESTIONAR PEDIDOS</h2>
     <table id="tablaPedidos">
@@ -26,6 +28,5 @@
     </table>
   </main>
 
-  <script src="../js/gestionarPedido.js"></script>
 </body>
 </html>

@@ -170,13 +170,16 @@ body {
 /* Products Grid Styles */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas por fila */
   gap: 20px;
   padding: 30px;
   background-color: #e9e9e9;
 }
 
+
 .product-card {
+  min-width: 300px;
+  flex-shrink: 0;
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;

@@ -1,7 +1,7 @@
 <?php
 $host = 'localhost';      // o la IP de tu servidor
-$usuario = 'admin';
-$contrasena = '123456';
+$usuario = 'root';
+$contrasena = '';
 $basededatos = 'tienda_sena';
 
 // Crear conexión

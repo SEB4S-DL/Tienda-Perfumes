@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Realizar Pedido - Nuit de Parfum</title>
   <link rel="stylesheet" href="../assets/css/realizarPedido.css" />
+  <link rel="stylesheet" href="../assets/css/styleheader.css">
+    <link rel="stylesheet" href="../assets/css/stylefooter.css">
 </head>
 <body>
-<?php session_start()?>
 
 <?php include '../includes/header.php'; ?>
 
@@ -24,6 +25,5 @@
   </main>
 
 
-  <script src="js/realizarPedido.js"></script>
 </body>
 </html>

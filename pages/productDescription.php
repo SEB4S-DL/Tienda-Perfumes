@@ -58,7 +58,5 @@
             </div>
         </div>
     </div>
-
-    <script src="js/productDescription.js"></script>
 </body>
 </html>
