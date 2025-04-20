@@ -1,53 +1,53 @@
 <?php
 session_start();
+
+// Incluir la conexión a la base de datos
 require '../db/db.php';
 
-// Inicializar carrito si no existe
-if (!isset($_SESSION['carrito'])) {
-    $_SESSION['carrito'] = [];
-}
+if (isset($_POST['agregar'])) {
+    // Obtener ID del producto
+    $producto_id = $_POST['producto_id'];
 
-// Acciones
-if (isset($_GET['sumar'])) {
-    $_SESSION['carrito'][$_GET['sumar']]['cantidad']++;
-}
-if (isset($_GET['restar'])) {
-    $id = $_GET['restar'];
-    $_SESSION['carrito'][$id]['cantidad']--;
-    if ($_SESSION['carrito'][$id]['cantidad'] <= 0) {
-        unset($_SESSION['carrito'][$id]);
+    // Obtener la cantidad enviada por el formulario (por defecto 1 si no se envía)
+    $cantidad = isset($_POST['cantidad']) ? intval($_POST['cantidad']) : 1;
+    if ($cantidad < 1) $cantidad = 1; // Evitar cantidades menores a 1
+
+    // Consulta para obtener el producto por ID
+    $query = "SELECT * FROM productos WHERE id = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("i", $producto_id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $producto = $resultado->fetch_assoc();
+
+    // Verificar si el producto tiene un precio con oferta
+    if (!empty($producto['precio_oferta']) && $producto['precio_oferta'] > 0) {
+        $precio = $producto['precio_oferta'];
+    } else {
+        $precio = $producto['precio'];
     }
-}
-if (isset($_GET['eliminar'])) {
-    unset($_SESSION['carrito'][$_GET['eliminar']]);
-}
-if (isset($_GET['vaciar'])) {
-    $_SESSION['carrito'] = [];
-}
 
-$productos = $_SESSION['carrito'];
-$total = 0;
+    // Verificar si el carrito ya está inicializado
+    if (!isset($_SESSION['carrito'])) {
+        $_SESSION['carrito'] = [];
+    }
 
-foreach ($productos as $p) {
-    $total += $p['precio'] * $p['cantidad'];
+    // Verificar si el producto ya está en el carrito
+    if (isset($_SESSION['carrito'][$producto_id])) {
+        $_SESSION['carrito'][$producto_id]['cantidad'] += $cantidad; // Sumar cantidad seleccionada
+    } else {
+        // Agregar nuevo producto al carrito con la cantidad seleccionada
+        $_SESSION['carrito'][$producto_id] = [
+            'id' => $producto['id'],
+            'nombre' => $producto['nombre'],
+            'precio' => $precio,
+            'cantidad' => $cantidad,
+            'imagen' => $producto['imagen'],
+        ];
+    }
+
+    // Redirigir al carrito para ver los cambios
+    header('Location: ../pages/carrito.php');
+    exit();
 }
 ?>
-
-<div data-total="<?= $total ?>">
-    <?php if (empty($productos)): ?>
-        <p>El carrito está vacío.</p>
-    <?php else: ?>
-        <?php foreach ($productos as $p): ?>
-            <div class="cart-item">
-                <span class="item-name"><?= htmlspecialchars($p['nombre']) ?></span>
-                <span class="item-qty">Cantidad: <?= $p['cantidad'] ?></span>
-                <span class="item-price">$<?= number_format($p['precio'] * $p['cantidad'], 0, ',', '.') ?> COP</span>
-                <div class="item-actions">
-                    <button onclick="actualizarCarrito('sumar', <?= $p['id'] ?>)">[+]</button>
-                    <button onclick="actualizarCarrito('restar', <?= $p['id'] ?>)">[-]</button>
-                    <button onclick="actualizarCarrito('eliminar', <?= $p['id'] ?>)">[Eliminar]</button>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    <?php endif; ?>
-</div>

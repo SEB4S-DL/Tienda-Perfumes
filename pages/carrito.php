@@ -1,29 +1,73 @@
+<?php
+session_start();
+require '../db/db.php';
+
+// Obtener el carrito de la sesión
+if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
+  // El carrito tiene productos
+} else {
+  $_SESSION['error_carrito_vacio'] = "Tu carrito está vacío. Agrega productos antes de continuar.";
+  header("Location: ../pages/carrito.php");
+  exit();
+}
+
+
+<script>
+  var carrito = <?php echo json_encode($carrito); ?>;
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+</script>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carrito de Compras</title>
   <link rel="stylesheet" href="../assets/css/carrito.css">
   <link rel="stylesheet" href="../assets/css/styleheader.css">
-    <link rel="stylesheet" href="../assets/css/stylefooter.css">
+  <link rel="stylesheet" href="../assets/css/stylefooter.css">
 </head>
 <body>
   <?php include '../includes/header.php'; ?>
+
   <main class="cart-container">
     <h2>CARRITO DE COMPRAS</h2>
+
     <div id="cart-items">
-      <p>Cargando carrito...</p>
+      <?php if (!empty($carrito)): ?>
+        <?php $total = 0; ?>
+        <?php foreach ($carrito as $item): ?>
+          <div class="cart-item">
+            <img src="../assets/img/<?= htmlspecialchars($item['imagen']) ?>" alt="<?= htmlspecialchars($item['nombre']) ?>" class="cart-img">
+
+            <div class="cart-details">
+              <p><strong><?= htmlspecialchars($item['nombre']) ?></strong></p>
+              <p>Precio unitario: $<?= number_format($item['precio'], 0) ?> COP</p>
+              <p>Cantidad: <?= $item['cantidad'] ?></p>
+              <p>Total: $<?= number_format($item['precio'] * $item['cantidad'], 0) ?> COP</p>
+            </div>
+          </div>
+          <?php $total += $item['precio'] * $item['cantidad']; ?>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <p>Tu carrito está vacío.</p>
+      <?php endif; ?>
     </div>
 
+    <?php if (!empty($carrito)): ?>
     <div class="cart-footer">
-      <button class="btn clear" onclick="vaciarCarrito()">Vaciar Carrito</button>
+      <form action="../backend/vaciarCarrito.php" method="post">
+        <button type="submit" class="btn clear">Vaciar Carrito</button>
+      </form>
+
       <div class="total">
-        <span id="total">Precio Total: $0 COP</span>
-        <a href="../pages/realizarPedido.php" class="btn order">Hacer Pedido</a>
+      <?php if (!empty($_SESSION['carrito'])): ?>
+  <a href="../pages/realizarPedido.php" class="btn order">Hacer Pedido</a>
+<?php endif; ?>
       </div>
     </div>
+    <?php endif; ?>
   </main>
+
   <script src="../js/carrito.js"></script>
 </body>
 </html>

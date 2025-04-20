@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="../assets/css/styleheader.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body><style>
+<body>
+<style>
     @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap");
 
     * {
@@ -178,12 +179,16 @@
       }
     }
   </style>
+
 <div class="container">
     <?php include '../includes/header.php'; ?>
-    <?php require '../backend/podructo.php'; ?>
+    <?php 
+    $categoria_id = 2; // Hombre
+    require '../backend/listar_productos.php'; ?> 
+
     <div class="banner">
       <div class="banner-content">
-        <h2>Perfumes<br>Unisex</h2>
+        <h2>Perfumes<br>Hombre</h2>
       </div>
     </div>
 
@@ -191,38 +196,46 @@
       <?php while ($p = mysqli_fetch_assoc($productos)): ?>
         <div class="product-card">
           <div class="product-image">
-            <?php if ($p['oferta'] == 1): ?>
+            <?php if ($p['precio_oferta'] > 0): ?>
               <span class="offer-tag">OFERTA</span>
             <?php endif; ?>
-            <img src="../assets/img/chanelNo5.png?= $p['imagen'] ?>" alt="<?= $p['nombre'] ?>">
+            <!-- <img src="../assets/img/<?= $p['imagen'] ?>" alt="<?= $p['nombre'] ?>"> -->
           </div>
           <div class="product-info">
             <h3><?= $p['nombre'] ?></h3>
             <div class="price">
-              <?php if ($p['oferta'] == 1): ?>
+              <?php if ($p['precio_oferta'] > 0): ?>
                 <span class="original-price">$<?= number_format($p['precio'], 0, ',', '.') ?></span>
+                <span class="sale-price">$<?= number_format($p['precio_oferta'], 0, ',', '.') ?></span>
+              <?php else: ?>
+                <span class="sale-price">$<?= number_format($p['precio'], 0, ',', '.') ?></span>
               <?php endif; ?>
-              <span class="sale-price">
-                $<?= number_format($p['precio'] - ($p['precio'] * 0.3), 0, ',', '.') ?>
-              </span>
             </div>
             <div class="botones">
-            <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
-              <button class="btn">Eliminar</button>
-              <button class="btn">Editar</button>
-            <?php endif; ?>
-              <form action="../backend/carrito.php" method="post">
-                <input type="hidden" name="producto_id" value="<?= $p['id'] ?>">
-                <button type="submit" name="agregar" class="btn grande">
-                  Comprar Ahora
-                  <i class="fas fa-shopping-cart carrito"></i>
-                </button>
+              <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+                <form action="../backend/eliminar_producto.php" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
+                  <input type="hidden" name="producto_id" value="<?= $p['id'] ?>">
+                  <button type="submit" class="btn">Eliminar</button>
+                </form>
+
+                <form action="../pages/editar_productos.php" method="get">
+                  <input type="hidden" name="id" value="<?= $p['id'] ?>">
+                  <button type="submit" class="btn">Editar</button>
+                </form>
+              <?php endif; ?>
+
+              <form action="../backend/carrito.php" method="post" style="display: flex; align-items: center; gap: 10px;">
+              <input type="hidden" name="producto_id" value="<?= $p['id'] ?>">
+              <input type="number" name="cantidad" value="1" min="1" style="width: 60px; padding: 6px 8px; border-radius: 10px; border: 1px solid #ccc;">
+              <button type="submit" name="agregar" class="btn grande">
+                Comprar Ahora <i class="fas fa-shopping-cart carrito"></i>
+              </button>
               </form>
             </div>
           </div>
         </div>
       <?php endwhile; ?>
     </div>
-  </div>
+</div>
 </body>
 </html>

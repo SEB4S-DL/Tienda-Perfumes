@@ -1,16 +1,34 @@
 <?php
 require '../db/db.php';
 
-// Filtrar productos por categoría
-$categoria_id = isset($_GET['categoria']) ? (int) $_GET['categoria'] : 0; // Si no hay categoría, muestra todos los productos
-if ($categoria_id > 0) {
-    // Filtra por la categoría seleccionada
-    $productos = mysqli_query($conexion, "SELECT * FROM productos WHERE categoria_id = $categoria_id");
-} else {
-    // Si no hay filtro, muestra todos los productos
-    $productos = mysqli_query($conexion, "SELECT * FROM productos");
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nombre = mysqli_real_escape_string($conexion, $_POST['nombre']);
+    $descripcion = mysqli_real_escape_string($conexion, $_POST['descripcion']);
+    $precio = (float) $_POST['precio'];
+    $stock = (int) $_POST['stock']; 
+    $fecha = date('Y-m-d'); // <-- FECHA ACTUAL
+    $categoria_id = (int) $_POST['categoria_id'];
+   
 
-// Obtener las categorías para mostrarlas en el header o menú
-$categorias = mysqli_query($conexion, "SELECT * FROM categorias");
-?>
+    // Manejo de imagen
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+        $nombreImagen = basename($_FILES['imagen']['name']);
+        $rutaDestino = '../uploads/' . $nombreImagen;
+        move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino);
+    } else {
+        $rutaDestino = null;
+    }
+
+    // Insertar en la base de datos (incluye fecha)
+    $query = "INSERT INTO productos (nombre, descripcion, precio, stock, categoria_id,fecha, imagen) 
+              VALUES ('$nombre', '$descripcion', $precio, $stock, $categoria_id, '$fecha', '$rutaDestino')";
+
+    if (mysqli_query($conexion, $query)) {
+        header("Location: ../index.php?mensaje=creado");
+        exit;
+    } else {
+        echo "Error al guardar el producto: " . mysqli_error($conexion);
+    }
+} else {
+    echo "Acceso no permitido.";
+}

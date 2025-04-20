@@ -46,11 +46,12 @@
         </tbody>
     </table>
 </div>
-
-
-
-    </main>
+</br>
+</br>
+</br>
     <?php include '../includes/footer.php'; ?>
+</main>
+    
 
     
 
