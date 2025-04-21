@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $email = $_POST['email'];
-    $rol = "admin";
+    $rol = "user";
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
     $imagenNombre = null;

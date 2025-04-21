@@ -1,15 +1,31 @@
 <?php
-// Activar errores temporalmente para debug
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 if (session_status() === PHP_SESSION_NONE) session_start();
 require '../db/db.php';
 
-// Detectar si es una petición AJAX
 $is_ajax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 
 try {
+    // Eliminar producto del carrito
+    if (isset($_POST['eliminar_producto_id'])) {
+        $producto_id = intval($_POST['eliminar_producto_id']);
+        if (isset($_SESSION['carrito'][$producto_id])) {
+            unset($_SESSION['carrito'][$producto_id]);
+        }
+
+        if ($is_ajax) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => true, 'mensaje' => 'Producto eliminado del carrito']);
+            exit;
+        } else {
+            header('Location: ../pages/carrito.php');
+            exit;
+        }
+    }
+
+    // Agregar producto al carrito
     if (isset($_POST['producto_id'])) {
         $producto_id = intval($_POST['producto_id']);
         $cantidad = isset($_POST['cantidad']) ? intval($_POST['cantidad']) : 1;
@@ -33,6 +49,7 @@ try {
             }
         }
 
+        $stockDisponible = intval($producto['stock']);
         $precio = (!empty($producto['precio_oferta']) && $producto['precio_oferta'] > 0)
             ? $producto['precio_oferta']
             : $producto['precio'];
@@ -41,6 +58,28 @@ try {
             $_SESSION['carrito'] = [];
         }
 
+        $cantidadExistente = isset($_SESSION['carrito'][$producto_id])
+            ? $_SESSION['carrito'][$producto_id]['cantidad']
+            : 0;
+
+        $cantidadTotal = $cantidadExistente + $cantidad;
+
+        // Validar que no se exceda el stock
+        if ($cantidadTotal > $stockDisponible) {
+            if ($is_ajax) {
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'success' => false,
+                    'error' => "La cantidad ingresada sobrepasa el stock disponible. Stock actual: $stockDisponible unidades."
+                ]);
+                exit;
+            } else {
+                header("Location: ../pages/carrito.php?error=stock_insuficiente&stock=$stockDisponible");
+                exit;
+            }
+        }
+
+        // Agregar al carrito
         if (isset($_SESSION['carrito'][$producto_id])) {
             $_SESSION['carrito'][$producto_id]['cantidad'] += $cantidad;
         } else {

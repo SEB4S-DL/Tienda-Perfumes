@@ -43,7 +43,7 @@ $ruta = basename($_SERVER['PHP_SELF']);
       <!-- Menú de administrador -->
       <?php if ($rol==='admin'): ?>
         <li><a href="/TIENDA-PERFUMES/pages/categorias.php">Categorías</a></li>
-        <li><a href="/TIENDA-PERFUMES/pages/editarProducto.php">Gestionar Productos</a></li>
+        <li><a href="/TIENDA-PERFUMES/pages/editarProducto.php">Crear Productos</a></li>
         <li><a href="/TIENDA-PERFUMES/pages/pedidosRealizados.php">Pedidos Realizados</a></li>
         <?php endif; ?>
 

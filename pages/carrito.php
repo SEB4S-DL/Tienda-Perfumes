@@ -1,15 +1,9 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) session_start(); 
-?>
-<?php
-
+if (session_status() === PHP_SESSION_NONE) session_start();
 require '../db/db.php';
-$carrito = $_SESSION['carrito'] ?? [];
-// Obtener el carrito de la sesión
-if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) 
-  // El carrito tiene productos
-?>
 
+$carrito = $_SESSION['carrito'] ?? [];
+?>
 <script>
   var carrito = <?php echo json_encode($carrito); ?>;
   localStorage.setItem('carrito', JSON.stringify(carrito));
@@ -35,8 +29,7 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0)
         <?php $total = 0; ?>
         <?php foreach ($carrito as $item): ?>
           <div class="cart-item">
-          <img src="../uploads/<?= htmlspecialchars($item['imagen']) ?>" alt="<?= htmlspecialchars($item['nombre']) ?>">
-
+            <img src="../uploads/<?= htmlspecialchars($item['imagen']) ?>" alt="<?= htmlspecialchars($item['nombre']) ?>">
 
             <div class="cart-details">
               <p><strong><?= htmlspecialchars($item['nombre']) ?></strong></p>
@@ -44,6 +37,12 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0)
               <p>Cantidad: <?= $item['cantidad'] ?></p>
               <p>Total: $<?= number_format($item['precio'] * $item['cantidad'], 0) ?> COP</p>
             </div>
+
+            <!-- Formulario para eliminar producto -->
+            <form method="POST" action="../backend/carrito.php" class="delete-form">
+              <input type="hidden" name="eliminar_producto_id" value="<?= $item['id'] ?>">
+              <button type="submit" class="btn eliminar" style="background-color: #2E211F;">Eliminar</button>
+            </form>
           </div>
           <?php $total += $item['precio'] * $item['cantidad']; ?>
         <?php endforeach; ?>
@@ -59,9 +58,8 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0)
       </form>
 
       <div class="total">
-      <?php if (!empty($_SESSION['carrito'])): ?>
-  <a href="../pages/realizarPedido.php" class="btn order">Hacer Pedido</a>
-<?php endif; ?>
+        <p><strong>Total a pagar:</strong> $<?= number_format($total, 0) ?> COP</p>
+        <a href="../pages/realizarPedido.php" class="btn order">Hacer Pedido</a>
       </div>
     </div>
     <?php endif; ?>
