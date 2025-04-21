@@ -25,8 +25,10 @@
                         <input type="password" name="password" placeholder="Contraseña" required>
                     </div>
                     <button type="submit" class="submit-btn">INGRESAR</button>
-                    <a href="/TIENDA-PERFUMES/pages/registro.php">Registarse</a>
-                </form>
+                    <br>
+                    <br>
+                    <br>
+                    <a href="/TIENDA-PERFUMES/pages/registro.php" style="text-decoration: none; color:aliceblue; margin-top: 10px; margin-left: 350px" class="submit-btn">Registrarse</a>
             </div>
         </div>
     </div>

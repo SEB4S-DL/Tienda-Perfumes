@@ -102,7 +102,7 @@ if (isset($_SESSION['mensaje'])) {
 
     <div class="button-container">
         <button type="submit" class="crear">Agregar</button>
-        <a href="../pages/inicio.php" class="cancelar">Cancelar</a>
+        <a href="../pages/categorias.php" class="cancelar">Cancelar</a>
     </div>
 </form>
 

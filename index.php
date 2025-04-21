@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// DEBUG: para verificar en pantalla
+// echo '<pre>'; print_r($_SESSION); echo '</pre>';
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,18 +24,8 @@
     <div class="container">
     <?php include '../Tienda-Perfumes/includes/header.php'; ?>
 
+        <img src="../Tienda-Perfumes/assets/img/header.jpg" width="100%">
         <!-- Main Slider -->
-        <div class="slider-container">
-            <div class="slider">
-                <div class="slide current">
-                    <img src="../Tienda-Perfumes/assets/img/header.jpg">
-                </div>
-                <!-- Puedes agregar más slides aquí -->
-            </div>
-            <button class="arrow prev">&lt;</button>
-            <button class="arrow next">&gt;</button>
-        </div>
-    <br><br><br><br><br>
     <?php include '../Tienda-Perfumes/includes/footer.php'; ?>
     </div>
 

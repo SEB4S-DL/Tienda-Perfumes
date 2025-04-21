@@ -5,20 +5,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $email = $_POST['email'];
-    $rol = "user";
+    $rol = "admin";
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-    $image = file_get_contents($_FILES['imagen']['tmp_name']);
+    $imagenNombre = null;
 
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+        $nombreArchivo = uniqid() . "_" . basename($_FILES['imagen']['name']);
+        $rutaDestino = '../uploads/' . $nombreArchivo;
 
-    // Creamos el statement
+        if (move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino)) {
+            $imagenNombre = $nombreArchivo;
+        }
+    }
+
     $stmt = $conexion->prepare("INSERT INTO usuarios (nombre, apellidos, email, password, rol, imagen) VALUES (?, ?, ?, ?, ?, ?)");
-
-    // Definimos variables por referencia
-    $stmt->send_long_data(5, $image); // 5 es la posición del campo 'imagen'
-
-
-    $stmt->bind_param("ssssss", $nombre, $apellido, $email, $password, $rol,$image);
+    $stmt->bind_param("ssssss", $nombre, $apellido, $email, $password, $rol, $imagenNombre);
 
     if ($stmt->execute()) {
         $stmt->close();

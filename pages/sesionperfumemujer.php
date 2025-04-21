@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -178,16 +183,19 @@
         grid-template-columns: 1fr;
       }
     }
-  </style>
+</style>
+
 <div class="container">
     <?php include '../includes/header.php'; ?>
-   <?php  
-   $categoria_id = 3; // mujer
-     require '../backend/listar_productos.php';?> 
-  
+    <?php 
+    $categoria_id = 3; 
+    require '../backend/listar_productos.php'; 
+    // Ahora la consulta SQL en listar_productos.php traerá solo los productos activos (activo = 1)
+    ?> 
+
     <div class="banner">
       <div class="banner-content">
-        <h2>Perfumes<br>Mujer</h2>
+        <h2>Perfumes<br>Hombre</h2>
       </div>
     </div>
 
@@ -198,10 +206,11 @@
             <?php if ($p['precio_oferta'] > 0): ?>
               <span class="offer-tag">OFERTA</span>
             <?php endif; ?>
-            <!-- <img src="../assets/img/<?= $p['imagen'] ?>" alt="<?= $p['nombre'] ?>"> -->
+            <img src="../uploads/<?= htmlspecialchars($p['imagen']) ?>" alt="<?= htmlspecialchars($p['nombre']) ?>">
           </div>
           <div class="product-info">
             <h3><?= $p['nombre'] ?></h3>
+            <h3><?= $p['descripcion'] ?></h3>
             <div class="price">
               <?php if ($p['precio_oferta'] > 0): ?>
                 <span class="original-price">$<?= number_format($p['precio'], 0, ',', '.') ?></span>
@@ -211,7 +220,7 @@
               <?php endif; ?>
             </div>
             <div class="botones">
-              <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+              <?php if (isset($_SESSION['usuario']['rol']) && $_SESSION['usuario']['rol'] === 'admin'): ?>
                 <form action="../backend/eliminar_producto.php" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
                   <input type="hidden" name="producto_id" value="<?= $p['id'] ?>">
                   <button type="submit" class="btn">Eliminar</button>
@@ -222,19 +231,53 @@
                   <button type="submit" class="btn">Editar</button>
                 </form>
               <?php endif; ?>
-
-              <form action="../backend/carrito.php" method="post" style="display: flex; align-items: center; gap: 10px;">
-              <input type="hidden" name="producto_id" value="<?= $p['id'] ?>">
-              <input type="number" name="cantidad" value="1" min="1" style="width: 60px; padding: 6px 8px; border-radius: 10px; border: 1px solid #ccc;">
-              <button type="submit" name="agregar" class="btn grande">
-                Comprar Ahora <i class="fas fa-shopping-cart carrito"></i>
-              </button>
-              </form>
+                <form class="form-carrito" method="post">
+                <input type="hidden" name="producto_id" value="<?= $p['id'] ?>">
+                <input type="number" name="cantidad" value="1" min="1" style="width: 60px; padding: 6px 8px; border-radius: 10px; border: 1px solid #ccc;">
+                <br>
+                <br>
+                <button type="submit" name="agregar" class="btn grande" data-id="<?= $p['id'] ?>">
+                  Añadir al carrito <i class="fas fa-shopping-cart carrito"></i>
+                </button>
+            </form>
             </div>
           </div>
         </div>
       <?php endwhile; ?>
     </div>
-  </div>
+</div>
+
+        <script>
+        document.querySelectorAll('.form-carrito').forEach(form => {
+          form.addEventListener('submit', async function (e) {
+            e.preventDefault(); // Evita recarga
+
+            const formData = new FormData(form);
+
+            try {
+              const response = await fetch('../backend/carrito.php', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                  'X-Requested-With': 'XMLHttpRequest' // Muy importante para que backend detecte AJAX
+                }
+              });
+
+              const data = await response.json();
+
+              if (data.success) {
+                alert('Producto agregado al carrito 🛒');
+              } else {
+                alert('Error: ' + (data.error || 'No se pudo agregar al carrito 🤔'));
+              }
+            } catch (error) {
+              console.error('Error en el fetch:', error);
+              alert('Ups, algo salió mal 😓');
+            }
+          });
+        });
+        </script>
+
+
 </body>
 </html>

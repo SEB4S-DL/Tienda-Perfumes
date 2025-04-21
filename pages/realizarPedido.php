@@ -1,10 +1,10 @@
 <?php 
 session_start();
 
-// Aseguramos que el usuario esté logueado
-if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    header("Location: ../pages/login.php");
-    exit();
+if (!isset($_SESSION['usuario']) || !isset($_SESSION['usuario']['id'])) {
+  // Redirige al login si no está logueado
+  header("Location: ../pages/login.php");
+  exit();
 }
 
 // Calcular el total del carrito

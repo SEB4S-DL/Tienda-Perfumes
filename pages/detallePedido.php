@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isAdmin && isset($_POST['estado'])
 
 // Obtener los productos del pedido (líneas de pedido)
 $sql_lineas = "SELECT lp.*, p.nombre, p.imagen, p.precio, p.precio_oferta 
-               FROM lineas_pedido lp
+               FROM lineas_pedidos lp
                JOIN productos p ON lp.producto_id = p.id
                WHERE lp.pedido_id = $pedido_id";
 $resultado_lineas = mysqli_query($conexion, $sql_lineas);
@@ -108,7 +108,9 @@ $resultado_lineas = mysqli_query($conexion, $sql_lineas);
             <tbody>
                 <?php while ($linea = mysqli_fetch_assoc($resultado_lineas)): ?>
                     <tr>
-                        <td><img src="../assets/img/<?= htmlspecialchars($linea['imagen']) ?>" width="50" /></td>
+                        <td><img src="../uploads/<?= htmlspecialchars($linea['imagen']) ?>" alt="<?= htmlspecialchars($linea['nombre']) ?>" style="width: 100px;">
+
+                        </td>
                         <td><?= htmlspecialchars($linea['nombre']) ?></td>
                         <td>
                             $<?= number_format($linea['precio_oferta'] > 0 ? $linea['precio_oferta'] : $linea['precio'], 0, ',', '.') ?> COP
@@ -118,10 +120,12 @@ $resultado_lineas = mysqli_query($conexion, $sql_lineas);
                 <?php endwhile; ?>
             </tbody>
         </table>
+                    
     <?php else: ?>
         <p>No hay productos registrados para este pedido.</p>
     <?php endif; ?>
-</div>
 
+    
+</div>
 </body>
 </html>

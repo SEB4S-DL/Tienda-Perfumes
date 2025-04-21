@@ -1,16 +1,14 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) session_start(); 
+?>
+<?php
+
 require '../db/db.php';
-
+$carrito = $_SESSION['carrito'] ?? [];
 // Obtener el carrito de la sesión
-if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
+if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) 
   // El carrito tiene productos
-} else {
-  $_SESSION['error_carrito_vacio'] = "Tu carrito está vacío. Agrega productos antes de continuar.";
-  header("Location: ../pages/carrito.php");
-  exit();
-}
-
+?>
 
 <script>
   var carrito = <?php echo json_encode($carrito); ?>;
@@ -37,7 +35,8 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
         <?php $total = 0; ?>
         <?php foreach ($carrito as $item): ?>
           <div class="cart-item">
-            <img src="../assets/img/<?= htmlspecialchars($item['imagen']) ?>" alt="<?= htmlspecialchars($item['nombre']) ?>" class="cart-img">
+          <img src="../uploads/<?= htmlspecialchars($item['imagen']) ?>" alt="<?= htmlspecialchars($item['nombre']) ?>">
+
 
             <div class="cart-details">
               <p><strong><?= htmlspecialchars($item['nombre']) ?></strong></p>

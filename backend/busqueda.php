@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../bd/bd.php'; // Ajusta ruta si es necesario
+require_once '../db/db.php'; // Ajusta ruta si es necesario
 
 $resultados = [];
 $busqueda = '';
@@ -13,7 +13,7 @@ if (isset($_GET['q']) && !empty(trim($_GET['q']))) {
                OR descripcion LIKE ? 
                OR marca LIKE ?";
     
-    $stmt = $conn->prepare($sql);
+    $stmt = $conexion->prepare($sql);
     $param = "%$busqueda%";
     $stmt->bind_param('sss', $param, $param, $param);
     $stmt->execute();

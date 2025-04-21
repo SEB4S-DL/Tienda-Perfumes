@@ -23,8 +23,8 @@
     </div>
     
     <main class="main-content">
-        <div class="add-category">
-            <button><a href="../backend/categories.php">Crear Categoria</a></button>
+        <div class="add-category" >
+            <button style="border-radius: 20px; background-color: #3A2E2B; padding: 5px; "><a href="../backend/categories.php" style="color: white; text-decoration: none">Crear Categoria</a></button>
         </div>
         <div class="categories-table-container">
     <table class="categories-table">
@@ -46,11 +46,9 @@
         </tbody>
     </table>
 </div>
-</br>
-</br>
-</br>
-    <?php include '../includes/footer.php'; ?>
+
 </main>
+<?php include '../includes/footer.php'; ?>
     
 
     

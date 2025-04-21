@@ -1,9 +1,13 @@
 <?php
 session_start();
-if (!isset($_SESSION['email'])) {
+
+// Validar que haya sesión iniciada correctamente
+if (!isset($_SESSION['usuario'])) {
     header('Location: login.php');
     exit();
 }
+
+$usuario = $_SESSION['usuario'];
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +17,7 @@ if (!isset($_SESSION['email'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuit de Parfum - Perfumería</title>
 
-    <!-- Forzar recarga del CSS agregando marca de tiempo -->
+    <!-- Forzar recarga del CSS con timestamp -->
     <link rel="stylesheet" href="../assets/css/perfilUsuario.css?v=<?= time() ?>">
     <link rel="stylesheet" href="../assets/css/styleheader.css?v=<?= time() ?>">
     <link rel="stylesheet" href="../assets/css/stylePaginaInicio.css?v=<?= time() ?>">
@@ -33,22 +37,26 @@ if (!isset($_SESSION['email'])) {
             <div class="profile-content">
                 <div class="profile-form">
                     <div class="form-group">
-                        <input type="text" id="nombre" value="<?= htmlspecialchars($_SESSION['nombre'] ?? '') ?>" placeholder="Nombre" readonly>
+                        <input type="text" id="nombre" value="<?= htmlspecialchars($usuario['nombre']) ?>" placeholder="Nombre" readonly>
                     </div>
 
                     <div class="form-group">
-                        <input type="email" id="email" value="<?= htmlspecialchars($_SESSION['email'] ?? '') ?>" placeholder="Email" readonly>
+                        <input type="email" id="email" value="<?= htmlspecialchars($usuario['email']) ?>" placeholder="Email" readonly>
                     </div>
                 </div>
 
                 <div class="profile-image">
-                    <img src="/TIENDA-PERFUMES/pages/mostrarimagen.php" alt="Foto" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;">
+                <img src="../uploads/<?= htmlspecialchars($usuario['imagen']) ?>" alt="<?= htmlspecialchars($usuario['nombre']) ?>" >
+
                 </div>
             </div>
         </div>
     </main>
 
     <br><br><br><br><br>
+    <br>
+    <br>
+    <br>
     <?php include '../includes/footer.php'; ?>
 </div>
 

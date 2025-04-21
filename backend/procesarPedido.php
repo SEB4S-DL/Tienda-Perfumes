@@ -45,8 +45,8 @@ if (mysqli_query($conexion, $sql)) {
         $producto_id = $item['id'];
         $unidades = $item['cantidad'];
 
-        // Usar el precio con oferta si está disponible
-        $precio = ($item['precio_oferta'] > 0) ? $item['precio_oferta'] : $item['precio'];
+        $precio = (isset($item['precio_oferta']) && $item['precio_oferta'] > 0) ? $item['precio_oferta'] : $item['precio'];
+
 
         // Insertar la línea de pedido en la base de datos
         $sql_linea = "INSERT INTO lineas_pedidos (pedido_id, producto_id, unidades, precio)

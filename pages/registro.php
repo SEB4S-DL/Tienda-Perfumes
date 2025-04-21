@@ -27,23 +27,20 @@
                     </div>
                     <div class="input-group">
                         <span class="material-symbols-outlined">mail</span>
-                        <input type="email" name="email"  placeholder="Email" required>
+                        <input type="email" name="email" placeholder="Email" required>
                     </div>
-                    
                     <div class="input-group">
                         <span class="material-symbols-outlined">lock</span>
                         <input type="password" name="password" placeholder="Contraseña" required>
                     </div>
                     <div class="input-group">
                         <label>Añadir Imagen</label>
-                        <input type="file" name="imagen">
+                        <input type="file" name="imagen" accept="image/*">
                     </div>
                     <button type="submit" class="submit-btn">REGISTRARME</button>
                 </form>
             </div>
         </div>
     </div>
-
-    
 </body>
 </html>

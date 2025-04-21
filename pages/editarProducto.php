@@ -65,12 +65,12 @@ while ($row = mysqli_fetch_assoc($resultado)) {
     <div class="fila full">
       <label for="imagen">Imagen</label>
       <input type="file" id="imagen" name="imagen" accept="image/*" required />
-      <span id="nombre-imagen">No hay imagen cargada</span>
+      
     </div>
 
     <button type="submit" >Guardar</button>
   </form>
 </main>
-
+<?php include '../includes/footer.php'?>
 </body>
 </html>

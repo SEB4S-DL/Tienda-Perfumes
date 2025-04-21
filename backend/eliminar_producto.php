@@ -1,14 +1,24 @@
 <?php
 session_start();
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin') {
-    require '../db/db.php'; // o el archivo donde conectas con la BD
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' &&
+    isset($_SESSION['usuario']['rol']) &&
+    $_SESSION['usuario']['rol'] === 'admin') {
+    
+    require '../db/db.php'; // Conexión a la base de datos
 
     $producto_id = intval($_POST['producto_id']);
-    $query = "DELETE FROM productos WHERE id = $producto_id";
-    mysqli_query($conexion, $query);
 
-    header("Location: ../pages/index.php"); // o donde sea que se vuelve después de borrar
-    exit;
+    // En lugar de eliminar, actualizamos el estado "activo"
+    $query = "UPDATE productos SET activo = 0 WHERE id = $producto_id";
+
+    if (mysqli_query($conexion, $query)) {
+        header("Location: ../index.php"); // Ajusta ruta si es necesario
+        exit;
+    } else {
+        echo "Error al desactivar el producto: " . mysqli_error($conexion);
+    }
+
 } else {
     echo "Acceso denegado.";
 }
