@@ -1,0 +1,33 @@
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #f0f0f0;
+  }
+  
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .logo img {
+    width: 70px;
+    height: 60px;
+    object-fit: contain;
+  }
+  
+  .brand h1 {
+    font-family: 'Playfair Display', serif;
+    color: #b08d57;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  
+  .brand p {
+    color: #b08d57;
+    font-size: 14px;
+  }

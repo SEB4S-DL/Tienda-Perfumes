@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.form-image {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    background-color: #f9f9f9;
+}
+
+.form-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.form-content {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #d7d4d0;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 100px;
+    color: #816E59;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 28px;
+}
+
+.input-group {
+    background-color: #bcb6ae;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    width: 85%;
+    margin-left: 8%;
+    color: #fff;
+}
+
+.input-group input::placeholder {
+    color: #ffffff;
+    opacity: 1;
+    font-size: 17px;
+}
+
+.input-group span {
+    color: #fff;
+    margin-right: 10px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #faf6f6;
+}
+
+.submit-btn {
+    background-color: #816e5999;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+    position: relative;
+    z-index: 1;
+    width: 50%;
+    margin-left: 25%;
+    height: 25%;
+    font-size: 20px;
+    text-shadow: 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.submit-btn:hover {
+    background-color: #8a7a67;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+    }
+    
+    .form-image {
+        height: 40vh;
+    }
+    
+    .form-content {
+        height: 60vh;
+    }
+    
+    .form-title {
+        margin-bottom: 40px;
+    }
+    
+    .input-group {
+        margin-bottom: 20px;
+    }
+}

@@ -1,0 +1,136 @@
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  background-color: #d9d9d9;
+  line-height: 1.6;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* Banner Styles */
+.banner {
+  background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20pantalla%202025-04-13%20125433-RtUBawxEtvGieR93stQDZn4utOfLpV.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.banner-content {
+  position: relative;
+  z-index: 1;
+}
+
+.banner-content h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+/* Main Content */
+main {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.contact-section {
+  text-align: center;
+}
+
+.contact-section h3 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.contact-info {
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.contact-info p {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.contact-info a {
+  color: #9c8249;
+  font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .about-content {
+    flex-direction: column;
+  }
+
+  .image-content {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap;
+    padding: 15px 20px;
+  }
+
+  nav {
+    order: 3;
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  nav ul {
+    justify-content: space-between;
+  }
+
+  .hero {
+    padding: 0 20px;
+  }
+
+  .about-content {
+    padding: 30px 20px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .footer-logo {
+    max-width: 100%;
+  }
+}
