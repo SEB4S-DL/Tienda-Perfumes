@@ -1,24 +1,34 @@
 <?php
-require '../db/db.php';
+require '../db/db.php'; // Asegúrate de tener aquí tu conexión a la BD
 
-// Asegurarse de que se pase la categoría
 if (!isset($categoria_id)) {
-    die("Falta el ID de categoría");
+    die('No se ha recibido una categoría válida 😤');
 }
 
-// Sanitizar el valor por seguridad
-$categoria_id = (int) $categoria_id;
+// Prevenir SQL Injection
+$categoria_id = intval($categoria_id);
 
-// Seleccionar solo los productos activos de la categoría
-$query = "SELECT id, nombre, descripcion, precio, precio_oferta, imagen 
-          FROM productos 
-          WHERE categoria_id = $categoria_id AND activo = 1"; // Filtrar solo los activos
+// Obtener nombre y banner de la categoría
+$sql_categoria = "SELECT nombre, banner FROM categorias WHERE id = ?";
+$stmt_cat = $conn->prepare($sql_categoria);
+$stmt_cat->bind_param("i", $categoria_id);
+$stmt_cat->execute();
+$result_cat = $stmt_cat->get_result();
 
-$productos = mysqli_query($conexion, $query);
-
-// Verificar errores de la consulta
-if (!$productos) {
-    die("Error al cargar productos: " . mysqli_error($conexion));
+if ($result_cat->num_rows === 0) {
+    die('Categoría no encontrada 🚫');
 }
 
+$categoria = $result_cat->fetch_assoc();
+$titulo_categoria = htmlspecialchars($categoria['nombre']);
+$banner_img = '../uploads/' . htmlspecialchars($categoria['banner']);
 
+// Obtener productos de la categoría
+$sql_productos = "SELECT id, nombre, descripcion, precio, precio_oferta, imagen 
+                  FROM productos 
+                  WHERE categoria_id = ? AND activo = 1";
+$stmt_prod = $conn->prepare($sql_productos);
+$stmt_prod->bind_param("i", $categoria_id);
+$stmt_prod->execute();
+$productos = $stmt_prod->get_result();
+?>

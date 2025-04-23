@@ -4,29 +4,27 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Define la base del proyecto (ajusta si cambia el nombre de tu carpeta)
+define('BASE_URL', '/TIENDA-PERFUMES/');
+
 // Incluir la conexión a la base de datos
-require '../db/db.php';
+require __DIR__ . '/../db/db.php';
 
 // Definir la variable de búsqueda y sanitizarla
 $busqueda = isset($_GET['q']) ? $_GET['q'] : '';
-
-// Sanitizar el valor de la búsqueda para evitar vulnerabilidades XSS
 $busqueda = htmlspecialchars($busqueda);
 
 // Inicializar los resultados
 $resultados = null;
 
-// Realizar la búsqueda en la base de datos si hay algo que buscar
 if (!empty($busqueda)) {
     $query = "SELECT * FROM productos WHERE nombre LIKE '%$busqueda%' AND activo = 1";
     $resultados = mysqli_query($conexion, $query);
 
-    // Verificar si hubo un error en la consulta
     if (!$resultados) {
         die("Error en la consulta: " . mysqli_error($conexion));
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -35,9 +33,9 @@ if (!empty($busqueda)) {
   <meta charset="UTF-8">
   <title>Buscar productos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../assets/css/styleheader.css">
-  <link rel="stylesheet" href="../assets/css/stylefooter.css">
-  <link rel="stylesheet" href="../assets/css/stylePaginaInicio.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/styleheader.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/stylefooter.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/stylePaginaInicio.css">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -157,7 +155,7 @@ if (!empty($busqueda)) {
 </head>
 <body>
 
-  <?php include_once '../includes/header.php'; ?>
+  <?php include_once __DIR__ . '/../includes/header.php'; ?>
 
   <main class="contenedor">
 
@@ -174,19 +172,19 @@ if (!empty($busqueda)) {
       <div class="contenedor-productos">
         <?php while ($producto = mysqli_fetch_assoc($resultados)): ?>
           <div class="producto">
-            <img src="/TIENDA-PERFUMES/uploads/<?= htmlspecialchars($producto['imagen']) ?>" alt="<?= htmlspecialchars($producto['nombre']) ?>">
+            <img src="<?= BASE_URL ?>uploads/<?= htmlspecialchars($producto['imagen']) ?>" alt="<?= htmlspecialchars($producto['nombre']) ?>">
             <h3><?= htmlspecialchars($producto['nombre']) ?></h3>
             <p class="precio">$<?= number_format($producto['precio'], 2) ?></p>
 
-            <form action="/TIENDA-PERFUMES/backend/agregar_carrito.php" method="POST">
+            <form action="<?= BASE_URL ?>backend/carrito.php" method="POST">
               <input type="hidden" name="id_producto" value="<?= $producto['id'] ?>">
-              <button type="submit">Agregar al carrito</button>
+           
             </form>
 
             <?php if (isset($_SESSION['usuario']['rol']) && $_SESSION['usuario']['rol'] === 'admin'): ?>
               <div class="admin-buttons">
-                <a href="/TIENDA-PERFUMES/pages/editarProducto.php?id=<?= $producto['id'] ?>">Editar</a>
-                <a href="/TIENDA-PERFUMES/backend/eliminarProducto.php?id=<?= $producto['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este producto?')">Eliminar</a>
+                <a href="<?= BASE_URL ?>pages/editar_Productos.php?id=<?= $producto['id'] ?>">Editar</a>
+                <a href="<?= BASE_URL ?>backend/eliminar_Producto.php?id=<?= $producto['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este producto?')">Eliminar</a>
               </div>
             <?php endif; ?>
           </div>
@@ -196,21 +194,9 @@ if (!empty($busqueda)) {
       <p>No se encontraron productos que coincidan con tu búsqueda.</p>
     <?php endif; ?>
 
-</main>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<?php include_once '../includes/footer.php'; ?>
+  </main>
+
+  <?php include_once __DIR__ . '/../includes/footer.php'; ?>
 
 </body>
 </html>

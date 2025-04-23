@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&
     $query = "UPDATE productos SET activo = 0 WHERE id = $producto_id";
 
     if (mysqli_query($conexion, $query)) {
-        header("Location: ../index.php"); // Ajusta ruta si es necesario
+        header("Location: ../pages/PlantillaCategorias.php"); // Ajusta ruta si es necesario
         exit;
     } else {
         echo "Error al desactivar el producto: " . mysqli_error($conexion);

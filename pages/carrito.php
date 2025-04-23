@@ -17,6 +17,24 @@ $carrito = $_SESSION['carrito'] ?? [];
   <link rel="stylesheet" href="../assets/css/carrito.css">
   <link rel="stylesheet" href="../assets/css/styleheader.css">
   <link rel="stylesheet" href="../assets/css/stylefooter.css">
+  <style>
+    .cantidad-controls {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .cantidad-controls button {
+      padding: 4px 10px;
+      background-color: #78624f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cantidad-controls button:hover {
+      background-color: #5e4e3f;
+    }
+  </style>
 </head>
 <body>
   <?php include '../includes/header.php'; ?>
@@ -34,7 +52,19 @@ $carrito = $_SESSION['carrito'] ?? [];
             <div class="cart-details">
               <p><strong><?= htmlspecialchars($item['nombre']) ?></strong></p>
               <p>Precio unitario: $<?= number_format($item['precio'], 0) ?> COP</p>
-              <p>Cantidad: <?= $item['cantidad'] ?></p>
+              <div class="cantidad-controls">
+                <form method="POST" action="../backend/carrito.php" style="display:inline;">
+                  <input type="hidden" name="disminuir_producto_id" value="<?= $item['id'] ?>">
+                  <button type="submit">−</button>
+                </form>
+
+                <span><?= $item['cantidad'] ?></span>
+
+                <form method="POST" action="../backend/carrito.php" style="display:inline;">
+                  <input type="hidden" name="aumentar_producto_id" value="<?= $item['id'] ?>">
+                  <button type="submit">+</button>
+                </form>
+              </div>
               <p>Total: $<?= number_format($item['precio'] * $item['cantidad'], 0) ?> COP</p>
             </div>
 

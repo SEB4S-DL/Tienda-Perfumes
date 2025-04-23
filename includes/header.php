@@ -2,7 +2,12 @@
 // includes/header.php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
+
+    
 }
+
+require_once __DIR__ . '/../db/db.php';
+
 
 // Extraigo los datos de usuario de la sesión
 $usuario = $_SESSION['usuario'] ?? null;
@@ -12,6 +17,8 @@ $imagen  = $usuario['imagen']  ?? null;
 
 // Obtengo la página actual para el menú activo
 $ruta = basename($_SERVER['PHP_SELF']);
+
+$categorias_result = mysqli_query($conexion, "SELECT id, nombre FROM categorias ORDER BY nombre ASC");
 ?>
 <header>
   <div class="logo-section">
@@ -27,15 +34,19 @@ $ruta = basename($_SERVER['PHP_SELF']);
   <nav>
     <ul class="main-menu">
       <li><a href="/TIENDA-PERFUMES/index.php" class="<?= $ruta=='index.php' ? 'active':'' ?>">Inicio</a></li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle <?= in_array($ruta, ['sesionperfumeunisex.php','sesionperfumehombre.php','sesionperfumemujer.php'])? 'active':'' ?>">
+      
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle <?= in_array($ruta, ['productos_por_categoria.php']) ? 'active' : '' ?>">
           Perfumes <span class="arrow-down">▼</span>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="/TIENDA-PERFUMES/pages/sesionperfumeunisex.php?categoria=1" class="<?= $ruta=='sesionperfumeunisex.php'?'active':'' ?>">Perfumes Unisex</a></li>
-          <li><a href="/TIENDA-PERFUMES/pages/sesionperfumehombre.php?categoria=2" class="<?= $ruta=='sesionperfumehombre.php'?'active':'' ?>">Perfumes Hombre</a></li>
-          <li><a href="/TIENDA-PERFUMES/pages/sesionperfumemujer.php?categoria=3" class="<?= $ruta=='sesionperfumemujer.php'?'active':'' ?>">Perfumes Mujer</a></li>
+          <?php while ($cat = mysqli_fetch_assoc($categorias_result)): ?>
+            <li><a href="/TIENDA-PERFUMES/pages/PlantillaCategorias.php?id=<?= $cat['id'] ?>">
+              <?= htmlspecialchars($cat['nombre']) ?>
+            </a></li>
+          <?php endwhile; ?>
         </ul>
+      </li>
       </li>
       <li><a href="/TIENDA-PERFUMES/pages/sesionsobrenosotros.php" class="<?= $ruta=='sesionsobrenosotros.php'?'active':'' ?>">Sobre Nosotros</a></li>
       <li><a href="/TIENDA-PERFUMES/pages/sesioncontacto.php" class="<?= $ruta=='sesioncontacto.php'?'active':'' ?>">Contacto</a></li>
@@ -45,6 +56,7 @@ $ruta = basename($_SERVER['PHP_SELF']);
         <li><a href="/TIENDA-PERFUMES/pages/categorias.php">Categorías</a></li>
         <li><a href="/TIENDA-PERFUMES/pages/editarProducto.php">Crear Productos</a></li>
         <li><a href="/TIENDA-PERFUMES/pages/pedidosRealizados.php">Pedidos Realizados</a></li>
+        <li><a href="/TIENDA-PERFUMES/pages/productos.php">Productos</a></li>
         <?php endif; ?>
 
       <?php if ($rol==='user'): ?>

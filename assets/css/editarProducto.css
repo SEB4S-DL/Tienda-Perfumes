@@ -123,19 +123,15 @@ body {
   }
   
   form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    
   }
   
   .fila {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: space-between;
+    
   }
   
   .fila.full {
-    flex-direction: column;
+ 
   }
   
   label {
@@ -170,3 +166,14 @@ body {
     cursor: pointer;
   }
   
+  #form-editar-producto {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.fila {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

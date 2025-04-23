@@ -16,6 +16,14 @@ if ($result) {
     exit();
 }
 
+// Obtener las categorías desde la base de datos
+$categorias = [];
+$query_categorias = "SELECT * FROM categorias";
+$resultado_categorias = mysqli_query($conexion, $query_categorias);
+while ($row = mysqli_fetch_assoc($resultado_categorias)) {
+    $categorias[] = $row;
+}
+
 // Si el formulario se envía para actualizar el producto
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = mysqli_real_escape_string($conexion, $_POST['nombre']);
@@ -174,9 +182,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <label for="categoria_id">Categoría:</label>
         <select name="categoria_id">
-            <option value="1" <?= $producto['categoria_id'] == 1 ? 'selected' : '' ?>>Unisex</option>
-            <option value="2" <?= $producto['categoria_id'] == 2 ? 'selected' : '' ?>>Hombre</option>
-            <option value="3" <?= $producto['categoria_id'] == 3 ? 'selected' : '' ?>>Mujer</option>
+            <?php foreach ($categorias as $cat): ?>
+                <option value="<?= $cat['id'] ?>" <?= $producto['categoria_id'] == $cat['id'] ? 'selected' : '' ?>><?= htmlspecialchars($cat['nombre']) ?></option>
+            <?php endforeach; ?>
         </select>
 
         <label for="imagen">Imagen:</label>

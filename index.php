@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-// DEBUG: para verificar en pantalla
-// echo '<pre>'; print_r($_SESSION); echo '</pre>';
 
 
 ?>

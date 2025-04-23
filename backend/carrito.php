@@ -25,6 +25,43 @@ try {
         }
     }
 
+    // Aumentar cantidad del producto
+    if (isset($_POST['aumentar_producto_id'])) {
+        $producto_id = intval($_POST['aumentar_producto_id']);
+
+        if (isset($_SESSION['carrito'][$producto_id])) {
+            $query = "SELECT stock FROM productos WHERE id = ?";
+            $stmt = $conexion->prepare($query);
+            $stmt->bind_param("i", $producto_id);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            $producto = $resultado->fetch_assoc();
+
+            if ($producto && $_SESSION['carrito'][$producto_id]['cantidad'] < intval($producto['stock'])) {
+                $_SESSION['carrito'][$producto_id]['cantidad']++;
+            }
+        }
+
+        header('Location: ../pages/carrito.php');
+        exit;
+    }
+
+    // Disminuir cantidad del producto
+    if (isset($_POST['disminuir_producto_id'])) {
+        $producto_id = intval($_POST['disminuir_producto_id']);
+
+        if (isset($_SESSION['carrito'][$producto_id])) {
+            if ($_SESSION['carrito'][$producto_id]['cantidad'] > 1) {
+                $_SESSION['carrito'][$producto_id]['cantidad']--;
+            } else {
+                unset($_SESSION['carrito'][$producto_id]);
+            }
+        }
+
+        header('Location: ../pages/carrito.php');
+        exit;
+    }
+
     // Agregar producto al carrito
     if (isset($_POST['producto_id'])) {
         $producto_id = intval($_POST['producto_id']);
@@ -64,7 +101,6 @@ try {
 
         $cantidadTotal = $cantidadExistente + $cantidad;
 
-        // Validar que no se exceda el stock
         if ($cantidadTotal > $stockDisponible) {
             if ($is_ajax) {
                 header('Content-Type: application/json');
@@ -79,7 +115,6 @@ try {
             }
         }
 
-        // Agregar al carrito
         if (isset($_SESSION['carrito'][$producto_id])) {
             $_SESSION['carrito'][$producto_id]['cantidad'] += $cantidad;
         } else {

@@ -29,29 +29,20 @@ while ($row = mysqli_fetch_assoc($resultado)) {
 <main>
   <h2>Crear Producto</h2>
 
-  <form id="form-editar-producto" method="POST" action="../backend/podructo.php" enctype="multipart/form-data">
-    <div class="fila">
-      <div>
+  <form id="form-editar-producto" method="POST" action="../backend/producto.php" enctype="multipart/form-data">
+  
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" name="nombre" required />
-      </div>
-      <div>
+
         <label for="descripcion">Descripción</label>
         <input type="text" id="descripcion" name="descripcion" required />
-      </div>
-    </div>
-
-    <div class="fila">
-      <div>
+    
         <label for="precio">Precio</label>
         <input type="number" step="0.01" id="precio" name="precio" required />
-      </div>
-      <div>
+    
         <label for="stock">Stock</label>
         <input type="number" id="stock" name="stock" required />
-      </div>
-    </div>
-
+  
     <div class="fila full">
       <label for="categoria">Categoría</label>
       <select name="categoria_id" id="categoria" required>
@@ -68,9 +59,11 @@ while ($row = mysqli_fetch_assoc($resultado)) {
       
     </div>
 
-    <button type="submit" >Guardar</button>
+    <button type="submit">Guardar</button>
   </form>
 </main>
+
 <?php include '../includes/footer.php'?>
+
 </body>
 </html>

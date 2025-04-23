@@ -59,10 +59,129 @@ $resultado_lineas = mysqli_query($conexion, $sql_lineas);
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Detalle Pedido - Nuit de Parfum</title>
   <link rel="stylesheet" href="../assets/css/styleheader.css" />
   <link rel="stylesheet" href="../assets/css/stylefooter.css" />
   <link rel="stylesheet" href="../assets/css/gestionarPedido.css" />
+  <title>Detalle Pedido - Nuit de Parfum</title>
+  <style>
+    /* Estilo general */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #5a4e42;
+        color: #5a4e42; /* Color café suave */
+        margin: 0;
+        padding: 0;
+    }
+
+    h2, h3 {
+        color: white; /* Café más oscuro para los encabezados */
+        text-align: center;
+    }
+
+    h2 {
+        margin-top: 20px;
+    }
+
+    h3 {
+        margin-top: 40px;
+    }
+
+    /* Estilo para los contenedores */
+    .detalle-pedido, .lineas-pedido {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Estilos para los párrafos */
+    p {
+        font-size: 1.1rem;
+        margin: 8px 0;
+        line-height: 1.5;
+    }
+
+    strong {
+        color: #4f3821;
+    }
+
+    /* Estilo para las tablas */
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    th, td {
+        padding: 12px;
+        border: 1px solid #d1b19d; /* Borde sutil color café */
+    }
+
+    th {
+        background-color: #8e735b; /* Café más intenso */
+        color: white;
+        font-weight: bold;
+    }
+
+    td {
+        background-color: #f9f4e3; /* Blanco suave con toque cálido */
+    }
+
+    /* Estilo para imágenes */
+    img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    /* Estilo para formularios */
+    form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    form label {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        color: #4f3821;
+    }
+
+    form select, form button {
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #8e735b;
+        font-size: 1rem;
+    }
+
+    form select {
+        background-color: #f9f4e3;
+    }
+
+    form button {
+        background-color: #8e735b;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+        background-color: #6c533f; /* Cambio al color más oscuro del café */
+    }
+
+    /* Estilo de mensaje de error */
+    .error {
+        color: red;
+        font-weight: bold;
+        text-align: center;
+    }
+  </style>
 </head>
 <body>
 
@@ -108,9 +227,7 @@ $resultado_lineas = mysqli_query($conexion, $sql_lineas);
             <tbody>
                 <?php while ($linea = mysqli_fetch_assoc($resultado_lineas)): ?>
                     <tr>
-                        <td><img src="../uploads/<?= htmlspecialchars($linea['imagen']) ?>" alt="<?= htmlspecialchars($linea['nombre']) ?>" style="width: 100px;">
-
-                        </td>
+                        <td><img src="../uploads/<?= htmlspecialchars($linea['imagen']) ?>" alt="<?= htmlspecialchars($linea['nombre']) ?>" style="width: 100px;"></td>
                         <td><?= htmlspecialchars($linea['nombre']) ?></td>
                         <td>
                             $<?= number_format($linea['precio_oferta'] > 0 ? $linea['precio_oferta'] : $linea['precio'], 0, ',', '.') ?> COP
@@ -120,12 +237,10 @@ $resultado_lineas = mysqli_query($conexion, $sql_lineas);
                 <?php endwhile; ?>
             </tbody>
         </table>
-                    
     <?php else: ?>
         <p>No hay productos registrados para este pedido.</p>
     <?php endif; ?>
-
-    
 </div>
+
 </body>
 </html>

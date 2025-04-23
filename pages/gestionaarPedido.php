@@ -40,7 +40,6 @@ if ($isAdmin) {
 $resultado = mysqli_query($conexion, $sql);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -56,7 +55,7 @@ $resultado = mysqli_query($conexion, $sql);
 <br>
 <div style="background-color: #2E211D;">
     <h2 style="color: white; margin-left: 750px">PEDIDOS REALIZADOS</h2>
-  </div>
+</div>
 <br>
 <main class="main-content">
     <div class="cart-container">
@@ -79,11 +78,11 @@ $resultado = mysqli_query($conexion, $sql);
                             <td><?= $pedido['fecha'] ?></td>
                             <td><?= ucfirst(htmlspecialchars($pedido['estado'])) ?></td>
                             <td>
-                                <?php if ($pedido['estado'] !== 'entregado'): ?>
-                                   
-                                <?php else: ?>
-                                    <em>Finalizado</em>
-                                <?php endif; ?>
+                                <a href="detallePedido.php?id=<?= $pedido['id'] ?>">
+                                    <button style="background-color: #4F3422; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer;">
+                                        Ver detalles
+                                    </button>
+                                </a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
