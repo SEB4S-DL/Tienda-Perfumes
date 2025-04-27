@@ -1,6 +1,7 @@
 <?php
 // Incluir la conexión a la base de datos
 include '../db/db.php';  // Asegúrate de que la ruta de tu archivo de conexión sea correcta
+include '../includes/validarSession.php';
 
 // Obtener el ID del producto desde la URL
 $id = $_GET['id'];  // O usar otra forma de obtener el ID del producto
