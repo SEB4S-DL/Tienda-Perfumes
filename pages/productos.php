@@ -9,12 +9,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<style>
-/* Aquí va todo tu CSS existente (omitido para ahorrar espacio) */
-</style>
+
 
 <?php 
-  include '../includes/header.php'; 
+  include '../includes/header.php';
   require '../db/db.php';
 
   // Consulta para obtener todos los productos

@@ -34,7 +34,7 @@
                         <input type="password" name="password" placeholder="Contraseña" required>
                     </div>
                     <div class="input-group">
-                        <label>Añadir Imagen</label>
+                        <label style="color: whitesmoke;">Añadir Imagen</label>
                         <input type="file" name="imagen" accept="image/*">
                     </div>
                     <button type="submit" class="submit-btn">REGISTRARME</button>

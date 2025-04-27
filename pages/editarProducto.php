@@ -1,5 +1,7 @@
 <?php
-session_start();
+include '../includes/validarSession.php';
+
+
 require '../db/db.php';
 
 // Obtener categorías

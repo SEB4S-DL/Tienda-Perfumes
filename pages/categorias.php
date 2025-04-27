@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +17,11 @@
     </style>
 
     
-    <?php include '../includes/header.php'; ?>
+    <?php 
+    include '../includes/header.php';
+    
+
+    ?>
     <div class="categories-header">
         <h2>Categorías</h2>
         <?php require '../backend/mostrarCategorias.php'; ?>

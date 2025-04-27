@@ -5,9 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Iniciar sesión solo si aún no está activa
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+include '../includes/validarSession.php';
 
 require '../db/db.php'; // Conexión a la base de datos
 
