@@ -177,3 +177,32 @@ body {
     flex-direction: column;
     gap: 10px;
 }
+
+select {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #ccc6c0;
+  border: none;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  font-size: 1rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%226%22%20viewBox%3D%220%200%2010%206%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M0%200L5%206L10%200H0Z%22%20fill%3D%22%234b3d2d%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px;
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #f5cd69;
+}
+
+input[type="file"] {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #ccc6c0;
+  border: none;
+  border-radius: 10px;
+}

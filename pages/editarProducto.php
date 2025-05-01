@@ -31,7 +31,7 @@ while ($row = mysqli_fetch_assoc($resultado)) {
 <main>
   <h2>Crear Producto</h2>
 
-  <form id="form-editar-producto" method="POST" action="../backend/producto.php" enctype="multipart/form-data">
+  <form id="form-editar-producto" method="POST" action="../backend/podructo.php" enctype="multipart/form-data">
   
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" name="nombre" required />

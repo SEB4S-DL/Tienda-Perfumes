@@ -1,9 +1,6 @@
 <?php
 // Asegúrate de iniciar sesión si no está iniciada
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
+include '../includes/validarSession.php';
 // Define la base del proyecto (ajusta si cambia el nombre de tu carpeta)
 define('BASE_URL', '/TIENDA-PERFUMES/');
 

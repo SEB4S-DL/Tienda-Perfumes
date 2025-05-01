@@ -1,12 +1,16 @@
 <?php
 // Incluir la conexión a la base de datos
-include '../db/db.php';  // Asegúrate de que la ruta de tu archivo de conexión sea correcta
+include '../db/db.php';  
 include '../includes/validarSession.php';
 
 // Obtener el ID del producto desde la URL
-$id = $_GET['id'];  // O usar otra forma de obtener el ID del producto
+$id = $_GET['id'] ?? null;
 
-// Obtener los datos del producto desde la base de datos
+// Mensajes para mostrar al usuario
+$mensaje = '';
+$tipo_mensaje = '';
+
+// Obtener datos del producto
 $sql = "SELECT * FROM productos WHERE id = $id";
 $result = mysqli_query($conexion, $sql);
 
@@ -17,7 +21,7 @@ if ($result) {
     exit();
 }
 
-// Obtener las categorías desde la base de datos
+// Obtener categorías
 $categorias = [];
 $query_categorias = "SELECT * FROM categorias";
 $resultado_categorias = mysqli_query($conexion, $query_categorias);
@@ -25,7 +29,7 @@ while ($row = mysqli_fetch_assoc($resultado_categorias)) {
     $categorias[] = $row;
 }
 
-// Si el formulario se envía para actualizar el producto
+// Procesar formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = mysqli_real_escape_string($conexion, $_POST['nombre']);
     $descripcion = mysqli_real_escape_string($conexion, $_POST['descripcion']);
@@ -33,19 +37,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $precio_oferta = mysqli_real_escape_string($conexion, $_POST['precio_oferta']);
     $stock = mysqli_real_escape_string($conexion, $_POST['stock']);
     $categoria_id = mysqli_real_escape_string($conexion, $_POST['categoria_id']);
-    $imagen = $_FILES['imagen']['name'];  // O usar alguna forma para manejar la imagen
+    $imagen = $_FILES['imagen']['name'];
 
-    // Si se ha subido una nueva imagen, movemos el archivo
+    // Procesar imagen
     if ($imagen) {
         $target_dir = "../uploads/";
-        $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
+        $target_file = $target_dir . basename($imagen);
         move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file);
     } else {
-        // Si no se sube una imagen nueva, mantén la anterior
         $imagen = $producto['imagen'];
     }
 
-    // Actualizar el producto en la base de datos
+    // Actualizar producto
     $sql_update = "UPDATE productos SET 
                    nombre = '$nombre',
                    descripcion = '$descripcion',
@@ -57,11 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                    WHERE id = $id";
 
     if (mysqli_query($conexion, $sql_update)) {
-        // Redirigir a la lista de productos o mostrar un mensaje de éxito
-        header("Location: ../index.php");
-        exit();
+        $mensaje = "Producto actualizado correctamente.";
+        $tipo_mensaje = 'exito';
     } else {
-        echo "Error al actualizar el producto: " . mysqli_error($conexion);
+        $mensaje = "Error al actualizar el producto: " . mysqli_error($conexion);
+        $tipo_mensaje = 'error';
     }
 }
 ?>
@@ -70,12 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Producto</title>
-
-    <!-- Estilos internos -->
+    <link rel="stylesheet" href="../assets/css/styleheader.css">
+    <link rel="stylesheet" href="../assets/css/stylePaginaInicio.css">
     <style>
-        /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -85,35 +86,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .container {
             width: 80%;
-            margin: 0 auto;
+            margin: 50px auto;
             padding: 20px;
             background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            margin-top: 50px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* Títulos */
         h2 {
             text-align: center;
-            color: #333;
             margin-bottom: 30px;
         }
 
-        /* Formulario */
         form {
             display: grid;
-            grid-template-columns: 1fr;
             gap: 20px;
         }
 
-        /* Etiquetas */
         label {
             font-weight: bold;
-            color: #555;
         }
 
-        /* Campos de entrada */
         input[type="text"],
         input[type="number"],
         textarea,
@@ -122,78 +115,102 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            font-size: 16px;
         }
 
-        /* Área de texto (textarea) */
         textarea {
             resize: vertical;
             height: 100px;
         }
 
-        /* Botón */
+        input[type="file"] {
+            background-color: #ccc6c0;
+            border: none;
+            border-radius: 10px;
+            padding: 0.5rem;
+            font-size: 1rem;
+            color: #4b3d2d;
+        }
+
         button[type="submit"] {
             padding: 12px 20px;
             background-color: #5cb85c;
-            border: none;
             color: white;
-            font-size: 16px;
-            cursor: pointer;
+            border: none;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            cursor: pointer;
         }
 
-        /* Botón en hover */
         button[type="submit"]:hover {
             background-color: #4cae4c;
         }
 
-        /* Estilos de la imagen de carga */
-        input[type="file"] {
-            padding: 5px;
+        .alerta {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
 
-        /* Opciones seleccionadas */
-        select {
-            padding: 10px;
-            border-radius: 5px;
+        .exito {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
         }
     </style>
 </head>
 <body>
+<?php include '../includes/header.php'; ?>
 
 <div class="container">
     <h2>Editar Producto</h2>
-    <!-- Formulario para editar el producto -->
+
+    <?php if ($mensaje): ?>
+        <div class="alerta <?= $tipo_mensaje ?>">
+            <?= $mensaje ?>
+        </div>
+        <?php if ($tipo_mensaje === 'exito'): ?>
+            <script>
+                setTimeout(function () {
+                    window.location.href = '../index.php'; // Ajustá esta ruta si es otra
+                }, 1000);
+            </script>
+        <?php endif; ?>
+    <?php endif; ?>
+
     <form method="POST" enctype="multipart/form-data">
         <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" value="<?= $producto['nombre'] ?>" required />
+        <input type="text" name="nombre" value="<?= htmlspecialchars($producto['nombre']) ?>">
 
         <label for="descripcion">Descripción:</label>
-        <textarea name="descripcion"><?= $producto['descripcion'] ?></textarea>
+        <textarea name="descripcion"><?= htmlspecialchars($producto['descripcion']) ?></textarea>
 
         <label for="precio">Precio:</label>
-        <input type="number" name="precio" value="<?= $producto['precio'] ?>" required />
+        <input type="number" name="precio" value="<?= $producto['precio'] ?>">
 
         <label for="precio_oferta">Precio Oferta:</label>
-        <input type="number" name="precio_oferta" value="<?= $producto['precio_oferta'] ?>" />
+        <input type="number" name="precio_oferta" value="<?= $producto['precio_oferta'] ?>">
 
         <label for="stock">Stock:</label>
-        <input type="number" name="stock" value="<?= $producto['stock'] ?>" required />
+        <input type="number" name="stock" value="<?= $producto['stock'] ?>">
 
         <label for="categoria_id">Categoría:</label>
         <select name="categoria_id">
             <?php foreach ($categorias as $cat): ?>
-                <option value="<?= $cat['id'] ?>" <?= $producto['categoria_id'] == $cat['id'] ? 'selected' : '' ?>><?= htmlspecialchars($cat['nombre']) ?></option>
+                <option value="<?= $cat['id'] ?>" <?= $producto['categoria_id'] == $cat['id'] ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($cat['nombre']) ?>
+                </option>
             <?php endforeach; ?>
         </select>
 
         <label for="imagen">Imagen:</label>
-        <input type="file" name="imagen" />
+        <input type="file" name="imagen">
 
         <button type="submit">Actualizar Producto</button>
     </form>
 </div>
-
 </body>
 </html>

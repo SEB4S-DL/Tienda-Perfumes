@@ -13,13 +13,14 @@
 
 <?php 
   include '../includes/header.php';
+  
   require '../db/db.php';
 
   // Consulta para obtener todos los productos
   $sql_productos = "SELECT * FROM productos";
   $productos = mysqli_query($conexion, $sql_productos);
 ?>
-
+  
 <div class="banner"></div>
   
 <div style="background-color: #756349;">

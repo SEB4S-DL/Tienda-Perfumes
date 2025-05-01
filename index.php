@@ -1,12 +1,5 @@
 <?php
-session_start();
-
-
-
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,10 +16,8 @@ session_start();
     <?php include '../Tienda-Perfumes/includes/header.php'; ?>
 
         <img src="../Tienda-Perfumes/assets/img/header.jpg" width="100%">
-        <!-- Main Slider -->
+
     <?php include '../Tienda-Perfumes/includes/footer.php'; ?>
     </div>
-
-
 </body>
 </html>

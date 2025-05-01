@@ -4,13 +4,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Aseguramos que la sesión esté iniciada correctamente
+// Verificar si el usuario está logueado
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: ../pages/detallePedido.php");
     exit();
 }
 
-require '../db/db.php';
+require '../db/db.php'; // Asegúrate de que este archivo tiene la conexión como $conexion
 
 $usuario_id = $_SESSION['usuario']['id'];
 
@@ -26,42 +26,48 @@ if (
     exit();
 }
 
-// Escapar y procesar datos de manera segura
+// Escapar datos
 $provincia = mysqli_real_escape_string($conexion, $_POST['provincia']);
 $localidad = mysqli_real_escape_string($conexion, $_POST['localidad']);
 $direccion = mysqli_real_escape_string($conexion, $_POST['direccion']);
 $coste = floatval(str_replace(',', '.', $_POST['coste']));
 $estado = 'pendiente';
 
-// Insertar el pedido en la base de datos
+// Insertar el pedido
 $sql = "INSERT INTO pedidos (usuario_id, provincia, localidad, direccion, coste, estado, fecha, hora)
         VALUES ('$usuario_id', '$provincia', '$localidad', '$direccion', '$coste', '$estado', CURDATE(), CURTIME())";
 
 if (mysqli_query($conexion, $sql)) {
     $pedido_id = mysqli_insert_id($conexion);
 
-    // Insertar cada producto del carrito como línea de pedido
     foreach ($_SESSION['carrito'] as $item) {
         $producto_id = $item['id'];
-        $unidades = $item['cantidad'];
-
+        $unidades = intval($item['cantidad']);
         $precio = (isset($item['precio_oferta']) && $item['precio_oferta'] > 0) ? $item['precio_oferta'] : $item['precio'];
 
-
-        // Insertar la línea de pedido en la base de datos
+        // Insertar línea de pedido
         $sql_linea = "INSERT INTO lineas_pedidos (pedido_id, producto_id, unidades, precio)
                       VALUES ('$pedido_id', '$producto_id', '$unidades', '$precio')";
-        
-        // Ejecutar la consulta de la línea de pedido
         mysqli_query($conexion, $sql_linea);
+
+        // Actualizar stock
+        $sql_stock = "UPDATE productos SET stock = stock - $unidades WHERE id = $producto_id AND stock >= $unidades";
+        mysqli_query($conexion, $sql_stock);
+
+        // Validar si el stock se actualizó correctamente
+        if (mysqli_affected_rows($conexion) === 0) {
+            echo "Error: Stock insuficiente para el producto ID $producto_id";
+            exit();
+        }
     }
 
-    // Vaciar el carrito después de procesar el pedido
+    // Vaciar el carrito
     unset($_SESSION['carrito']);
 
     // Redirigir al detalle del pedido
-    header("Location: ../pages/detallePedido.php?id=$pedido_id");
+    header("Location: /TIENDA-PERFUMES/index.php");
     exit();
+
 } else {
     echo "Error al registrar el pedido: " . mysqli_error($conexion);
     exit();

@@ -89,7 +89,7 @@
 
 <div class="" style="background-image: url('<?= $_img ?>');">
   <div class="content" style="background-color: #4b3c2f; color: white; justify-content:center; align-items: center">
-    <h2 style="margin-left:800px"  ><?= htmlspecialchars($titulo_categoria) ?></h2>
+    <h2 style="margin-left: 20px;"><?= htmlspecialchars($titulo_categoria) ?></h2>
   </div>
 </div>
 
